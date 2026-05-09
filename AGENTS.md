@@ -36,7 +36,14 @@ No dependencies beyond `requests` (`pip install requests`). No tests, no lint/ty
 - First run (no state file) always triggers a notification
 
 ## Typical usage
-Runs via cron daily (based on log timestamps). No dev server, no watch mode, no codegen.
+Runs via cron daily (based on log timestamps). Use `setup_cron.sh` to install the cron job:
+
+```bash
+./setup_cron.sh                    # 每天 8:00 运行
+./setup_cron.sh '0 9,21 * * *'    # 自定义调度
+```
+
+No dev server, no watch mode, no codegen.
 
 ## Version detection logic
 Scrapes API JSON for items containing "BIOS" in title (excluding "手册"/"教程"), extracts first all-digit token >=3 chars as version number, sorts descending.
