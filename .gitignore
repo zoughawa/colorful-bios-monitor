@@ -1,8 +1,14 @@
-# 凭据和运行时生成的文件
+# 包含凭据
 config.ini
+
+# 运行时生成的文件
 last_bios_version.txt
 inspector.log
 
 # Python
 __pycache__/
 *.pyc
+
+# OpenCode 配置
+opencode.json
+
