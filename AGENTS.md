@@ -1,7 +1,14 @@
 # AGENTS.md
 
 ## Overview
-Single-file Python script (`inspector.py`) that polls the Colorful (七彩虹) motherboard BIOS API for a specific board (CVN B650M GAMING FROZEN V14) and sends a notification every run — on new version with default priority, or on no-change with low priority (ntfy only).
+Multi-module Python project that polls the Colorful (七彩虹) motherboard BIOS API for a specific board (CVN B650M GAMING FROZEN V14) and sends a notification every run — on new version with default priority, or on no-change with low priority (ntfy only).
+
+| Module | Responsibility |
+|---|---|
+| `inspector.py` | Entry point, main flow |
+| `config.py` | Loads `config.ini`, exports constants |
+| `scraper.py` | API scraping, version detection |
+| `notifier.py` | All notification methods + dispatcher |
 
 ## Running
 ```bash
