@@ -3,6 +3,7 @@
 提供 HTML 标签清理和 API 请求功能，从七彩虹接口提取指定主板的最新 BIOS 版本。
 """
 
+import html
 import logging
 import re
 
@@ -28,6 +29,7 @@ def _strip_html(text):
         r"</(p|div|li|tr|h[1-6]|blockquote)>", "\n", text, flags=re.IGNORECASE
     )
     text = re.sub(r"<[^>]+>", "", text)
+    text = html.unescape(text)
     lines = [re.sub(r"\s+", " ", line).strip() for line in text.split("\n")]
     return "\n".join(line for line in lines if line)
 
