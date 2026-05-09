@@ -1,0 +1,8 @@
+# 凭据和运行时生成的文件
+config.ini
+last_bios_version.txt
+inspector.log
+
+# Python
+__pycache__/
+*.pyc

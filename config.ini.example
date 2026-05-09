@@ -1,0 +1,23 @@
+[API]
+url = https://www.colorful.cn/Home/GetProductDownload?mid=84&id=040eff36-32dd-4a26-8f63-7c9498db4fef
+
+[LOCAL]
+state_file = last_bios_version.txt
+log_file = inspector.log
+
+[NOTIFICATION]
+# 通知方式: email / notify_send / ntfy / print / none
+method = ntfy
+
+[EMAIL]
+smtp_server = smtp.example.com
+smtp_port = 25
+sender_email = your_email@example.com
+sender_password = your_password
+receiver_email = receiver@example.com
+
+[NTFY]
+server = http://localhost:44467
+topic = colorful-bios
+username = your_username
+password = your_password
