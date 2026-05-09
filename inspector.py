@@ -4,8 +4,9 @@
 与本地记录的版本比对，发现新版本或确认无更新时均通过
 配置的方式发送通知。
 
-ntfy 通知支持 priority 参数：发现新版本 priority=3（默认），
-无新版本 priority=2（低优先级）。
+ntfy 通知的优先级可通过 [NTFY] priority_new_version / priority_no_update
+配置项分别设定（默认 3 / 2）。无新版本时是否发送通知由
+[NOTIFICATION] notify_on_no_update 控制（默认 true）。
 
 Supported notification methods:
     - email: 通过 SMTP 发送邮件通知
@@ -47,6 +48,7 @@ API_URL = config.get("API", "url")
 STATE_FILE = config.get("LOCAL", "state_file")
 LOG_FILE = config.get("LOCAL", "log_file")
 NOTIFY_METHOD = config.get("NOTIFICATION", "method")
+NOTIFY_ON_NO_UPDATE = config.getboolean("NOTIFICATION", "notify_on_no_update", fallback=True)
 
 SMTP_SERVER = config.get("EMAIL", "smtp_server")
 SMTP_PORT = config.getint("EMAIL", "smtp_port")
@@ -58,6 +60,8 @@ NTFY_SERVER = config.get("NTFY", "server")
 NTFY_TOPIC = config.get("NTFY", "topic")
 NTFY_USERNAME = config.get("NTFY", "username", fallback="")
 NTFY_PASSWORD = config.get("NTFY", "password", fallback="")
+NTFY_PRIORITY_NEW = config.getint("NTFY", "priority_new_version", fallback=3)
+NTFY_PRIORITY_NO_UPDATE = config.getint("NTFY", "priority_no_update", fallback=2)
 
 
 def _strip_html(text):
@@ -293,15 +297,15 @@ def notify(subject, content, priority=3):
 def main():
     """主流程：检查 BIOS 更新并通过配置的方式发送通知。
 
-    每次运行都会发送通知，其中 ntfy 方式支持 Priority 头：
-    有新版本时优先级为 3（默认），无新版本时优先级为 2（低优先级）。
+    通过 NOTIFY_ON_NO_UPDATE 配置项控制无新版本时是否通知，
+    ntfy 通知优先级通过 NTFY_PRIORITY_NEW / NTFY_PRIORITY_NO_UPDATE 配置。
 
     工作流程：
         1. 从 API 获取最新 BIOS 版本。
         2. 从本地文件读取上次记录的版本。
         3. 比对版本：若不同则标记发现更新。
         4. 发现更新时发送通知并更新本地记录文件。
-        5. 版本无变化时发送"暂无新版本"通知。
+        5. 版本无变化时根据配置决定是否发送"暂无新版本"通知。
 
     本地记录文件不存在时（首次运行），视为新版本并触发通知。
     """
@@ -329,17 +333,18 @@ def main():
 详情: {latest_info['content'][:200]}{'...' if len(latest_info['content']) > 200 else ''}
 下载地址: {latest_info['fileurl']}"""
         logging.info("通知内容:\n%s", content)
-        notify(subject, content, priority=3)
+        notify(subject, content, priority=NTFY_PRIORITY_NEW)
 
         with open(STATE_FILE, "w") as f:
             f.write(current_version)
     else:
         logging.info("未发现BIOS更新。")
-        subject = "【七彩虹BIOS监控】暂无新版本"
-        content = f"""主板: CVN B650M GAMING FROZEN V14
+        if NOTIFY_ON_NO_UPDATE:
+            subject = "【七彩虹BIOS监控】暂无新版本"
+            content = f"""主板: CVN B650M GAMING FROZEN V14
 当前BIOS版本: {current_version}
 状态: 暂无新版本"""
-        notify(subject, content, priority=2)
+            notify(subject, content, priority=NTFY_PRIORITY_NO_UPDATE)
 
 
 if __name__ == "__main__":

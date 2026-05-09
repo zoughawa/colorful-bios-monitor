@@ -12,12 +12,14 @@ No dependencies beyond `requests` (`pip install requests`). No tests, no lint/ty
 ## Config (`config.ini`)
 - `[API] url` — Colorful product download API endpoint
 - `[NOTIFICATION] method` — one of: `email`, `notify_send`, `ntfy`, `print`, `none`
+- `[NOTIFICATION] notify_on_no_update` — send notification when no new version (`true`/`false`, default `true`)
 - Credentials live in `config.ini` (email SMTP, ntfy auth). **Do not commit secrets.**
 - `config.ini.example` — template with placeholder values, safe to commit.
 - `.gitignore` ignores `config.ini`, `last_bios_version.txt`, `inspector.log`. **Always clone → copy `config.ini.example` to `config.ini` → fill in real secrets.**
 
 ## ntfy features
 - Supports `Priority` header (1–5). New version → 3, no update → 2. Only `ntfy` method uses priority; others ignore it.
+- Priority configurable via `[NTFY] priority_new_version` and `[NTFY] priority_no_update`.
 
 ## Notification methods
 | method | prerequisite |

@@ -8,6 +8,8 @@ log_file = inspector.log
 [NOTIFICATION]
 # 通知方式: email / notify_send / ntfy / print / none
 method = ntfy
+# 未检查到新版本时是否发送通知: true / false
+notify_on_no_update = true
 
 [EMAIL]
 smtp_server = smtp.example.com
@@ -21,3 +23,7 @@ server = http://localhost:44467
 topic = colorful-bios
 username = your_username
 password = your_password
+# 新版本通知优先级 (1-5)
+priority_new_version = 3
+# 无新版本通知优先级 (1-5)
+priority_no_update = 2
