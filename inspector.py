@@ -45,7 +45,7 @@ def main():
     logging.info("开始检查BIOS更新...")
 
     current_version, latest_info = get_latest_bios_info()
-    if current_version is None:
+    if current_version is None or latest_info is None:
         return
 
     try:
