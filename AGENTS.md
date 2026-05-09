@@ -43,11 +43,11 @@ No dependencies beyond `requests` (`pip install requests`). No tests, no lint/ty
 - First run (no state file) always triggers a notification
 
 ## Typical usage
-Runs via cron daily (based on log timestamps). Use `setup_cron.sh` to install the cron job:
+Runs via cron daily (based on log timestamps). Use `scripts/setup_cron.sh` to install the cron job:
 
 ```bash
-./setup_cron.sh                    # 每天 8:00 运行
-./setup_cron.sh '0 9,21 * * *'    # 自定义调度
+./scripts/setup_cron.sh                    # 每天 8:00 运行
+./scripts/setup_cron.sh '0 9,21 * * *'    # 自定义调度
 ```
 
 No dev server, no watch mode, no codegen.
