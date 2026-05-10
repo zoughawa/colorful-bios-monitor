@@ -9,7 +9,7 @@ log_file = run.log
 # 通知方式: email / notify_send / ntfy / print / none
 method = ntfy
 # 未检查到新版本时是否发送通知: true / false
-notify_on_no_update = true
+notify_on_no_update = false
 
 [EMAIL]
 smtp_server = smtp.example.com
@@ -19,11 +19,11 @@ sender_password = your_password
 receiver_email = receiver@example.com
 
 [NTFY]
-server = http://localhost:44467
+server = http://your-ntfy-server:port
 topic = colorful-bios
 username = your_username
 password = your_password
 # 新版本通知优先级 (1-5)
-priority_new_version = 3
+priority_new_version = 4
 # 无新版本通知优先级 (1-5)
 priority_no_update = 2
