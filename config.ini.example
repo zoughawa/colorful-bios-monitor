@@ -3,7 +3,7 @@ url = https://www.colorful.cn/Home/GetProductDownload?mid=84&id=040eff36-32dd-4a
 
 [LOCAL]
 state_file = last_bios_version.txt
-log_file = inspector.log
+log_file = run.log
 
 [NOTIFICATION]
 # 通知方式: email / notify_send / ntfy / print / none

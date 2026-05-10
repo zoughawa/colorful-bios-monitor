@@ -3,7 +3,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 CRON_ID="# colorful-bios-monitor"
-CRON_CMD="cd $SCRIPT_DIR && python3 $SCRIPT_DIR/inspector.py"
+CRON_CMD="cd $SCRIPT_DIR && python3 $SCRIPT_DIR/main.py"
 usage() {
     echo "用法: $0 [cron表达式]"
     echo "示例:"

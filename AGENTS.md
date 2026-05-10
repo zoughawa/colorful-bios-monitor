@@ -5,14 +5,14 @@ Multi-module Python project that polls the Colorful (七彩虹) motherboard BIOS
 
 | Module | Responsibility |
 |---|---|
-| `inspector.py` | Entry point, main flow |
+| `main.py` | Entry point, main flow |
 | `config.py` | Loads `config.ini`, exports constants |
 | `scraper.py` | API scraping, version detection |
 | `notifier.py` | All notification methods + dispatcher |
 
 ## Running
 ```bash
-python inspector.py
+python main.py
 ```
 No dependencies beyond `requests` (`pip install requests`). No tests, no lint/typecheck config.
 
@@ -22,7 +22,7 @@ No dependencies beyond `requests` (`pip install requests`). No tests, no lint/ty
 - `[NOTIFICATION] notify_on_no_update` — send notification when no new version (`true`/`false`, default `true`)
 - Credentials live in `config.ini` (email SMTP, ntfy auth). **Do not commit secrets.**
 - `config.ini.example` — template with placeholder values, safe to commit.
-- `.gitignore` ignores `config.ini`, `last_bios_version.txt`, `inspector.log`. **Always clone → copy `config.ini.example` to `config.ini` → fill in real secrets.**
+- `.gitignore` ignores `config.ini`, `last_bios_version.txt`, `run.log`. **Always clone → copy `config.ini.example` to `config.ini` → fill in real secrets.**
 
 ## ntfy features
 - Supports `Priority` header (1–5). New version → 3, no update → 2. Only `ntfy` method uses priority; others ignore it.
@@ -39,7 +39,7 @@ No dependencies beyond `requests` (`pip install requests`). No tests, no lint/ty
 
 ## State & logging
 - `last_bios_version.txt` — tracks last seen BIOS version (persisted across runs)
-- `inspector.log` — append-only log (rotated manually if needed)
+- `run.log` — append-only log (rotated manually if needed)
 - First run (no state file) always triggers a notification
 
 ## Typical usage
