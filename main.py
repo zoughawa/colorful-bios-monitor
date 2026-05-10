@@ -16,7 +16,7 @@ ntfy 通知的优先级可通过 [NTFY] priority_new_version / priority_no_updat
     - none: 禁用通知
 
 使用示例:
-     $ python main.py
+    $ python main.py
 """
 
 import logging
